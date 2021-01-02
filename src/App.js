@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { createContext, useState } from "react";
+import ProductCategory from "./ProductShops/ProductCategory";
+import Productshop from "./ProductShops/Productshop";
+import Contact from "./siblingsComponent/Contact";
+import Header from "./siblingsComponent/Header";
+import Home from "./siblingsComponent/Home";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export const CountContext = createContext();
+export const CategoryContext = createContext();
+const App = () => {
+	const [count, setCount] = useState(0);
+	const [category, setCategory] = useState("Mobile");
+	return (
+		<>
+			<CategoryContext.Provider value={[category, setCategory]}>
+				<ProductCategory></ProductCategory>
+				<Productshop></Productshop>
+			</CategoryContext.Provider>
+			<hr />
+			<CountContext.Provider value={[count, setCount]} className="App">
+				<Header></Header>
+				<Home></Home>
+				<Contact></Contact>
+			</CountContext.Provider>
+		</>
+	);
+};
 
 export default App;
